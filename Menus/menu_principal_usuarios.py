@@ -1,12 +1,12 @@
 from Utils.limparchat import limpar_chat
-from Menus.menu_principal_livros import menu_livros
-from Menus.menu_principal_usuarios import menu_principal_usuarios
 
 def mostrar_menu():
-    print("===== BIBIOTLECA MENU =====")
-    print("1 - Menu de livros")
-    print("2 - Menu de Usuarios")
-    print("3 - Sair")
+    print("===== MENU DE USUARIOS =====")
+    print("1 - Cadastrar")
+    print("2 - Vereficar status")
+    print("3 - Editar")
+    print("4 - Excluir")
+    print("5 - Sair")
 
 def selecionar_op():
     while True:
@@ -17,19 +17,14 @@ def selecionar_op():
             print("\nErro: Use apenas numeros!")
 
 
-def menu_inicial():
+def menu_principal_usuarios():
     while True:
         mostrar_menu()
         op = selecionar_op()
         if op == 1:
             limpar_chat()
-            menu_livros()
-        elif op == 2:
+        elif op == 5:
             limpar_chat()
-            menu_principal_usuarios()
-        elif op == 3:
-            limpar_chat()
-            print("\nSistema: Fechando bibiotleca....")
             break
         elif op < 1 or op > 3:
             print("\nErro: Opção invalida!")
