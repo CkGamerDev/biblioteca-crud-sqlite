@@ -1,27 +1,7 @@
 import sqlite3
 
 def conectar():
-    return sqlite3.connect("biblioteca.db")
-
-def criar_tabelas():
-    conexao = conectar()
-
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS livros (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome_livro TEXT,
-        descricao TEXT,
-        estado_livro TEXT,
-        entregue_por TEXT,
-        status INTEGER DEFAULT 1
-    )
-    """)
-
-    conexao.commit()
-
-    conexao.close()
+    return sqlite3.connect("Banco/biblioteca.db")
 
 def salvar_livro(nome, descricao, estado_livro, entregue):
     conexao = conectar()
