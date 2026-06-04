@@ -1,4 +1,5 @@
 from Utils.limparchat import limpar_chat
+from Cadastros.cadastrar_usuario import coletar_nome_usuario
 
 def mostrar_menu():
     print("===== MENU DE USUARIOS =====")
@@ -23,6 +24,7 @@ def menu_principal_usuarios():
         op = selecionar_op()
         if op == 1:
             limpar_chat()
+            coletar_nome_usuario()
         elif op == 5:
             limpar_chat()
             break
