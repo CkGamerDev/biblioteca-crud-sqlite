@@ -209,3 +209,19 @@ def salvar_usuario(nome, data, cpf):
     conexao.commit()
 
     conexao.close()
+
+def buscar_usuario_por_cpf(cpf):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT id, nome_completo, data_nascimento, cpf, livros_emprestados
+        FROM usuarios
+        WHERE cpf = ?
+    """, (cpf,))
+
+    usuario = cursor.fetchone()
+
+    conexao.close()
+
+    return usuario

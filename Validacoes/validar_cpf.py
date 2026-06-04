@@ -1,7 +1,6 @@
 def validar_cpf(cpf):
     #remove traços e pontos
     cpf = ''.join(filter(str.isdigit, cpf))
-
     # Verifica se possui 11 dígitos
     if len(cpf) != 11:
         print("\nErro: O CPF deve conter 11 digitos! ")

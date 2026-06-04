@@ -5,20 +5,26 @@ from Utils.limparchat import limpar_chat
 
 def coletar_cpf_usuario():
     while True:
+        print("0 - Sair")
         cpf = input("Digite o CPF do usuario: ").strip()
         if not cpf:
             print("\nErro: O CPF não pode ser vazio! ")
         else:
+           if cpf == "0":
+               return None
            if validar_cpf(cpf):
                return cpf
 
 
 def coletar_nome_usuario():
     while True:
+        print("0 - Sair")
         nome_usuario = input("Digite o nome do usuario: ").strip()
         if not nome_usuario:
             print("\nErro: Usuario sem nome.")
         else:
+            if nome_usuario == "0":
+                return None
             if any(caractere.isdigit() for caractere in nome_usuario):
                 print("\nErro: O nome de usuario não pode conter numeros.")
             else:
@@ -26,7 +32,10 @@ def coletar_nome_usuario():
             
 def coletar_data_nascimento_usuario():
     while True:
+        print("0 - Sair")
         data = input("Digite a data de nascimento (DD/MM/AAAA): ").strip()
+        if data == "0":
+            return None
         try:
             data_convertida = datetime.strptime(data, "%d/%m/%Y").date()
             hoje = datetime.today().date()
@@ -66,6 +75,9 @@ def cadastro_usuario():
     limpar_chat()
     print("======= CADASTRANDO USUARIO =======")
     cpf_usuario = coletar_cpf_usuario()
+    if cpf_usuario == None:
+        limpar_chat()
+        return False
     limpar_chat()
     print("======= CADASTRANDO USUARIO =======")
     print(f"CPF: {cpf_usuario}\n")
@@ -76,11 +88,17 @@ def cadastro_usuario():
         return False
     
     nome_usuario = coletar_nome_usuario()
+    if nome_usuario == None:
+        limpar_chat()
+        return False
     limpar_chat()
     print("======= CADASTRANDO USUARIO =======")
     print(f"CPF: {cpf_usuario}\nNome: {nome_usuario}\n")
 
     data_nascimento = coletar_data_nascimento_usuario()
+    if data_nascimento == None:
+        limpar_chat()
+        return False
     limpar_chat()
     print("======= CADASTRANDO USUARIO =======")
     print(f"CPF: {cpf_usuario}\nNome: {nome_usuario}\nData de Nascimento: {data_nascimento}\n")
