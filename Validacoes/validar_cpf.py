@@ -1,13 +1,15 @@
 def validar_cpf(cpf):
-    # Remove pontos e traços
+    #remove traços e pontos
     cpf = ''.join(filter(str.isdigit, cpf))
 
     # Verifica se possui 11 dígitos
     if len(cpf) != 11:
+        print("\nErro: O CPF deve conter 11 digitos! ")
         return False
 
     # Verifica se todos os números são iguais
     if cpf == cpf[0] * 11:
+        print("\nErro: CPF inválido! ")
         return False
 
     # ==========================
@@ -29,6 +31,7 @@ def validar_cpf(cpf):
         digito1 = resto
 
     if digito1 != int(cpf[9]):
+        print("\nErro: CPF inválido! ")
         return False
 
     # ==========================
@@ -50,6 +53,7 @@ def validar_cpf(cpf):
         digito2 = resto
 
     if digito2 != int(cpf[10]):
+        print("\nErro: CPF inválido! ")
         return False
 
     return True

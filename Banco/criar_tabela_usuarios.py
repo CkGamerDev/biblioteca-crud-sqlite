@@ -11,8 +11,8 @@ def cria_tabela_usuarios():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome_completo TEXT,
         data_nascimento TEXT,
-        cpf INTEGER,
-        livros_emprestados INTEGER
+        cpf TEXT,
+        livros_emprestados INTEGER DEFAULT 0
     )
     """)
 

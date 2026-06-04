@@ -175,3 +175,37 @@ def excluir_livro(id_livro):
 
     conexao.commit()
     conexao.close()
+
+def buscar_cpf_usuario(cpf):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM usuarios
+    WHERE cpf = ?
+    """, (cpf,))
+
+    cpf_usuario = cursor.fetchone()
+
+    conexao.close()
+
+    return cpf_usuario
+
+def salvar_usuario(nome, data, cpf):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    INSERT INTO usuarios (
+        nome_completo,
+        data_nascimento,
+        cpf
+    )
+    VALUES (?, ?, ?)
+    """, (nome, data, cpf))
+
+    conexao.commit()
+
+    conexao.close()
