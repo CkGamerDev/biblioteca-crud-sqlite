@@ -2,6 +2,7 @@ from Utils.limparchat import limpar_chat
 from Cadastros.cadastrar_usuario import cadastro_usuario
 from Pesquisas.Usuarios.pesquisar_usuario import pesquisar_usuario
 from Edicoes.Usuarios.editando_usuario import editar_usuario
+from Exclusoes.excluir_usuario import excluir_usuario
 
 def mostrar_menu():
     print("===== MENU DE USUARIOS =====")
@@ -33,6 +34,9 @@ def menu_principal_usuarios():
         if op == 3:
             limpar_chat()
             editar_usuario()
+        if op == 4:
+            limpar_chat()
+            excluir_usuario()
         elif op == 5:
             limpar_chat()
             break

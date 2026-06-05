@@ -268,3 +268,17 @@ def editar_cpf_usuario(cpf_usuario, novo_cpf_usuario):
 
     conexao.commit()
     conexao.close()
+
+
+def excluir_usuario_banco_dados(cpf_usuario):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    DELETE FROM usuarios
+    WHERE cpf = ?
+    """, (cpf_usuario,))
+
+    conexao.commit()
+    conexao.close()
