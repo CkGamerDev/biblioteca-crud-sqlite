@@ -225,3 +225,46 @@ def buscar_usuario_por_cpf(cpf):
     conexao.close()
 
     return usuario
+
+
+def editar_nome_usuario(cpf_usuario, novo_nome):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE usuarios
+    SET nome_completo = ?
+    WHERE cpf = ?
+    """, (novo_nome, cpf_usuario))
+
+    conexao.commit()
+    conexao.close()
+
+def editar_data_nascimento_usuario(cpf_usuario, nova_data):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE usuarios
+    SET data_nascimento = ?
+    WHERE cpf = ?
+    """, (nova_data, cpf_usuario))
+
+    conexao.commit()
+    conexao.close()
+
+def editar_cpf_usuario(cpf_usuario, novo_cpf_usuario):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE usuarios
+    SET cpf = ?
+    WHERE cpf = ?
+    """, (novo_cpf_usuario, cpf_usuario))
+
+    conexao.commit()
+    conexao.close()

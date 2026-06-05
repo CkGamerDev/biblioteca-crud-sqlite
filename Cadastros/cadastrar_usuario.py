@@ -79,13 +79,12 @@ def cadastro_usuario():
         limpar_chat()
         return False
     limpar_chat()
-    print("======= CADASTRANDO USUARIO =======")
-    print(f"CPF: {cpf_usuario}\n")
-
     if buscar_cpf_usuario(cpf_usuario):
         limpar_chat()
         print("Erro: Esse CPF já está cadastrado no banco de dados!\n")
         return False
+    print("======= CADASTRANDO USUARIO =======")
+    print(f"CPF: {cpf_usuario}\n")
     
     nome_usuario = coletar_nome_usuario()
     if nome_usuario == None:
