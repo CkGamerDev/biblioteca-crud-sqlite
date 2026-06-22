@@ -37,3 +37,4 @@ def pesquisar_usuario():
         print("Erro: Esse CPF não existe no banco de dados!\n")
         return False
     mostrar_informacoes_usuario(cpf_usuario)
+    return cpf_usuario

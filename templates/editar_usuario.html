@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Editar usuario | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Edicao</span>
+        <h1>Editar usuario</h1>
+    </div>
+    <a class="button" href="{{ url_for('usuarios') }}">Voltar</a>
+</section>
+
+<section class="form-band compact">
+    <form method="post" class="grid-form">
+        <label>
+            Nome completo
+            <input type="text" name="nome_completo" value="{{ usuario.nome_completo }}" required>
+        </label>
+        <label>
+            Data de nascimento
+            <input type="date" name="data_nascimento" value="{{ usuario.data_nascimento }}" required>
+        </label>
+        <label>
+            CPF
+            <input type="text" name="cpf" value="{{ usuario.cpf }}" required>
+        </label>
+        <button class="button primary" type="submit">Salvar alteracoes</button>
+    </form>
+</section>
+{% endblock %}

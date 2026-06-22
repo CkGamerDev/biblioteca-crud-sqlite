@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Cadastro</span>
+        <h1>Usuarios</h1>
+    </div>
+    <!--<a class="button accent" href="{{ url_for('emprestimos') }}">Novo emprestimo</a>-->
+</section>
+
+<section class="form-band">
+    <form method="post" class="grid-form">
+        <h2>Novo usuario</h2>
+        <label>
+            Nome completo
+            <input type="text" name="nome_completo" placeholder="Nome do usuario" required>
+        </label>
+        <label>
+            Data de nascimento
+            <input type="date" name="data_nascimento" required>
+        </label>
+        <label>
+            CPF
+            <input type="text" name="cpf" placeholder="Somente numeros ou com pontos" required>
+        </label>
+        <button class="button primary" type="submit">Cadastrar</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="section-title">
+        <h2>Lista de usuarios</h2>
+        <form class="filters" method="get">
+            <input type="search" name="busca" placeholder="Buscar usuario ou CPF" value="{{ busca }}">
+            <button class="button" type="submit">Buscar</button>
+        </form>
+    </div>
+
+    {% if usuarios %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Nascimento</th>
+                        <th>CPF</th>
+                        <th>Livros</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nome_completo }}</td>
+                            <td>{{ usuario.data_nascimento }}</td>
+                            <td>{{ usuario.cpf }}</td>
+                            <td>{{ usuario.livros_emprestados }}</td>
+                            <td class="row-actions">
+                                <a class="button small" href="{{ url_for('editar_usuario', cpf=usuario.cpf) }}">Editar</a>
+                                <form method="post" action="{{ url_for('excluir_usuario_web', cpf=usuario.cpf) }}">
+                                    <button class="button danger small" type="submit">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty">Nenhum usuario encontrado.</p>
+    {% endif %}
+</section>
+{% endblock %}

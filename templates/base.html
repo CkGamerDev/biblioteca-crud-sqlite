@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Biblioteca{% endblock %}</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('index') }}">Livraria Digital</a>
+        <nav class="nav">
+            <a class="{% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Inicio</a>
+            <a class="{% if request.endpoint in ['livros', 'editar_livro'] %}active{% endif %}" href="{{ url_for('livros') }}">Livros</a>
+            <a class="{% if request.endpoint in ['usuarios', 'editar_usuario'] %}active{% endif %}" href="{{ url_for('usuarios') }}">Usuarios</a>
+            <a class="{% if request.endpoint == 'emprestimos' %}active{% endif %}" href="{{ url_for('emprestimos') }}">Emprestimos</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                <div class="alerts">
+                    {% for categoria, mensagem in mensagens %}
+                        <div class="alert {{ categoria }}">{{ mensagem }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Emprestimos | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Movimento</span>
+        <h1>Emprestimos</h1>
+    </div>
+    <div class="quick-actions">
+        <!--<a class="button" href="{{ url_for('usuarios') }}">Usuarios</a>
+        <a class="button" href="{{ url_for('livros') }}">Livros</a>-->
+    </div>
+</section>
+
+<section class="form-band">
+    <form method="post" class="grid-form">
+        <h2>Novo emprestimo</h2>
+        <label>
+            Usuario
+            <select name="cpf" required>
+                <option value="">Selecione</option>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.cpf }}">{{ usuario.nome_completo }} - {{ usuario.cpf }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            Livro disponivel
+            <select name="id_livro" required>
+                <option value="">Selecione</option>
+                {% for livro in livros %}
+                    <option value="{{ livro.id }}">{{ livro.id }} - {{ livro.nome_livro }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            Vencimento
+            <input type="date" name="data_vencimento" required>
+        </label>
+        <button class="button primary" type="submit">Registrar</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="section-title">
+        <h2>Emprestimos ativos</h2>
+    </div>
+
+    {% if emprestimos %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Livro</th>
+                        <th>Usuario</th>
+                        <th>CPF</th>
+                        <th>Emprestimo</th>
+                        <th>Vencimento</th>
+                        <th>Acao</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emprestimo in emprestimos %}
+                        <tr>
+                            <td>{{ emprestimo.nome_livro }}</td>
+                            <td>{{ emprestimo.nome_usuario }}</td>
+                            <td>{{ emprestimo.cpf }}</td>
+                            <td>{{ emprestimo.data_emprestimo }}</td>
+                            <td>{{ emprestimo.data_vencimento }}</td>
+                            <td>
+                                <form method="post" action="{{ url_for('devolver_emprestimo', id_emprestimo=emprestimo.rowid) }}">
+                                    <button class="button small accent" type="submit">Devolver</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty">Nenhum emprestimo ativo.</p>
+    {% endif %}
+</section>
+{% endblock %}

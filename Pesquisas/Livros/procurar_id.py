@@ -28,7 +28,7 @@ def pesquisar_livro_id():
     livro = buscar_livro_id(index)
     if not livro:
         print("Sistema: Livro não encontrado!\n")
-        return
+        return False
     mostrar_livro(livro)
     return index
     

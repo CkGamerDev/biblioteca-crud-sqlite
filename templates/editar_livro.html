@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Editar livro | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Edicao</span>
+        <h1>Editar livro</h1>
+    </div>
+    <a class="button" href="{{ url_for('livros') }}">Voltar</a>
+</section>
+
+<section class="form-band compact">
+    <form method="post" class="grid-form">
+        <label>
+            Nome do livro
+            <input type="text" name="nome_livro" value="{{ livro.nome_livro }}" required>
+        </label>
+        <label>
+            Descricao
+            <input type="text" name="descricao" value="{{ livro.descricao }}">
+        </label>
+        <label>
+            Condicao
+            <input type="text" name="estado_livro" value="{{ livro.estado_livro }}">
+        </label>
+        <label>
+            Entregue por
+            <input type="text" name="entregue_por" value="{{ livro.entregue_por }}" required>
+        </label>
+        <label>
+            Status
+            <select name="status">
+                <option value="1" {% if livro.status == 1 %}selected{% endif %}>Disponivel</option>
+                <option value="0" {% if livro.status == 0 %}selected{% endif %}>Emprestado</option>
+            </select>
+        </label>
+        <button class="button primary" type="submit">Salvar alteracoes</button>
+    </form>
+</section>
+{% endblock %}

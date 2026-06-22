@@ -1,7 +1,10 @@
 import sqlite3
+from pathlib import Path
+
+CAMINHO_BANCO = Path(__file__).resolve().parent / "biblioteca.db"
 
 def conectar():
-    return sqlite3.connect("Banco/biblioteca.db")
+    return sqlite3.connect(str(CAMINHO_BANCO))
 
 def salvar_livro(nome, descricao, estado_livro, entregue):
     conexao = conectar()
@@ -163,6 +166,20 @@ def editar_entregue_livro(id_livro, novo_entregue):
     conexao.commit()
     conexao.close()
 
+def editar_status_livro(id_livro, novo_status):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE livros
+    SET status = ?
+    WHERE id = ?
+    """, (novo_status, id_livro))
+
+    conexao.commit()
+    conexao.close()
+
 def excluir_livro(id_livro):
     conexao = conectar()
 
@@ -241,6 +258,20 @@ def editar_nome_usuario(cpf_usuario, novo_nome):
     conexao.commit()
     conexao.close()
 
+def editar_livros_emprestado_usuario(cpf_usuario, qnt_livros):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE usuarios
+    SET livros_emprestados = ?
+    WHERE cpf = ?
+    """, (qnt_livros, cpf_usuario))
+
+    conexao.commit()
+    conexao.close()
+
 def editar_data_nascimento_usuario(cpf_usuario, nova_data):
     conexao = conectar()
 
@@ -281,4 +312,27 @@ def excluir_usuario_banco_dados(cpf_usuario):
     """, (cpf_usuario,))
 
     conexao.commit()
+    conexao.close()
+
+
+def salvar_emprestimo(cpf, nome_usuario, data_nasimento_usuario, id_livro, nome_livro, data_emprestimo, data_vencimento):
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    INSERT INTO emprestimos (
+        cpf,
+        nome_usuario,
+        data_nascimento_usuario,
+        id_livro,
+        nome_livro,
+        data_emprestimo,
+        data_vencimento
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    """, (cpf, nome_usuario, data_nasimento_usuario, id_livro, nome_livro, data_emprestimo, data_vencimento))
+
+    conexao.commit()
+
     conexao.close()

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Livros | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Acervo</span>
+        <h1>Livros</h1>
+    </div>
+    <!--<a class="button accent" href="{{ url_for('emprestimos') }}">Emprestar livro</a>-->
+</section>
+
+<section class="form-band">
+    <form method="post" class="grid-form">
+        <h2>Novo livro</h2>
+        <label>
+            Nome do livro
+            <input type="text" name="nome_livro" placeholder="Ex: Dom Casmurro" required>
+        </label>
+        <label>
+            Descricao
+            <input type="text" name="descricao" placeholder="Opcional">
+        </label>
+        <label>
+            Condicao
+            <input type="text" name="estado_livro" placeholder="Ex: Bom estado">
+        </label>
+        <label>
+            Entregue por
+            <input type="text" name="entregue_por" placeholder="Nome da pessoa" required>
+        </label>
+        <button class="button primary" type="submit">Cadastrar</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="section-title">
+        <h2>Lista de livros</h2>
+        <form class="filters" method="get">
+            <input type="search" name="busca" placeholder="Buscar livro" value="{{ busca }}">
+            <select name="status">
+                <option value="todos" {% if filtro == 'todos' %}selected{% endif %}>Todos</option>
+                <option value="disponiveis" {% if filtro == 'disponiveis' %}selected{% endif %}>Disponiveis</option>
+                <option value="emprestados" {% if filtro == 'emprestados' %}selected{% endif %}>Emprestados</option>
+            </select>
+            <button class="button" type="submit">Filtrar</button>
+        </form>
+    </div>
+
+    {% if livros %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Livro</th>
+                        <th>Descricao</th>
+                        <th>Condicao</th>
+                        <th>Entregue por</th>
+                        <th>Status</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livro in livros %}
+                        <tr>
+                            <td>{{ livro.id }}</td>
+                            <td>{{ livro.nome_livro }}</td>
+                            <td>{{ livro.descricao }}</td>
+                            <td>{{ livro.estado_livro }}</td>
+                            <td>{{ livro.entregue_por }}</td>
+                            <td><span class="pill {{ classe_status_livro(livro.status) }}">{{ rotulo_status_livro(livro.status) }}</span></td>
+                            <td class="row-actions">
+                                <a class="button small" href="{{ url_for('editar_livro', id_livro=livro.id) }}">Editar</a>
+                                <form method="post" action="{{ url_for('excluir_livro_web', id_livro=livro.id) }}">
+                                    <button class="button danger small" type="submit">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty">Nenhum livro encontrado.</p>
+    {% endif %}
+</section>
+{% endblock %}

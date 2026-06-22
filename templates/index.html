@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio | Biblioteca{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <span class="eyebrow">Painel</span>
+        <h1>Biblioteca</h1>
+    </div>
+    <div class="quick-actions">
+        <!--<a class="button primary" href="{{ url_for('livros') }}">Livros</a>
+        <a class="button" href="{{ url_for('usuarios') }}">Usuarios</a>
+        <a class="button accent" href="{{ url_for('emprestimos') }}">Emprestimos</a>-->
+    </div>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span>Total de livros</span>
+        <strong>{{ estatisticas.livros }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>Disponiveis</span>
+        <strong>{{ estatisticas.disponiveis }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>Emprestados</span>
+        <strong>{{ estatisticas.emprestados }}</strong>
+    </article>
+    <article class="stat-card">
+        <span>Usuarios</span>
+        <strong>{{ estatisticas.usuarios }}</strong>
+    </article>
+</section>
+
+<section class="content-grid">
+    <div class="panel">
+        <div class="section-title">
+            <h2>Ultimos livros</h2>
+            <a href="{{ url_for('livros') }}">Ver todos</a>
+        </div>
+
+        {% if ultimos_livros %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Livro</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for livro in ultimos_livros %}
+                            <tr>
+                                <td>{{ livro.id }}</td>
+                                <td>{{ livro.nome_livro }}</td>
+                                <td><span class="pill {{ classe_status_livro(livro.status) }}">{{ rotulo_status_livro(livro.status) }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="empty">Nenhum livro cadastrado.</p>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <div class="section-title">
+            <h2>Emprestimos</h2>
+            <a href="{{ url_for('emprestimos') }}">Abrir</a>
+        </div>
+
+        {% if emprestimos %}
+            <div class="loan-list">
+                {% for emprestimo in emprestimos %}
+                    <div class="loan-item">
+                        <strong>{{ emprestimo.nome_livro }}</strong>
+                        <span>{{ emprestimo.nome_usuario }}</span>
+                        <small>Vence em {{ emprestimo.data_vencimento }}</small>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty">Nenhum emprestimo ativo.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
